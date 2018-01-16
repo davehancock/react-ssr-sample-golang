@@ -1,0 +1,39 @@
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~bootstrap/scss/_variables.scss";
+@import "~bootstrap/scss/_mixins.scss";
+
+.btn-primary {
+  @include button-variant(#ddd, #959595, #bfbfbf);
+}
+
+button:focus {
+  outline: 0 !important;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.brand-text {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-style: italic;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+#body{
+  margin-bottom: 100px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  background-color: #e9ecef;
+}

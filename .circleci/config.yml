@@ -1,0 +1,67 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/react-ssr-sample-golang
+    docker:
+      - image: circleci/node:7
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: frontend-deps-{{ checksum "package.json" }}
+
+      - run:
+          name: Install Frontend
+          command: yarn install
+
+      - run:
+          name: Build Client Side
+          command: yarn build
+
+      - save_cache:
+          key: frontend-deps-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - 'Dockerfile'
+            - 'react-build'
+            - 'public'
+            - 'src'
+            - 'Gopkg.lock'
+            - 'Gopkg.toml'
+
+  deploy:
+    working_directory: ~/react-ssr-sample-golang
+    machine: true
+
+    steps:
+      - attach_workspace:
+          at: ~/react-ssr-sample-golang
+
+      - run:
+          name: Docker Build
+          command: docker build -t daves125125/react-ssr-sample-golang .
+
+      - run:
+          name: Docker Login
+          command: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+      - run:
+          name: Docker Push
+          command: docker push daves125125/react-ssr-sample-golang
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
