@@ -6,5 +6,8 @@ var console = {
     log: print
 };
 
-window.Set = function () {
+window.setTimeout = function () {
+};
+
+window.clearTimeout = function () {
 };
