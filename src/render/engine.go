@@ -39,10 +39,12 @@ func (e *Engine) Render(currentPath string, serverSideState string) string {
 	ctx := duktape.New()
 
 	if err := ctx.PevalString(e.polyfillContents); err != nil {
+		fmt.Println("Error evaluating polyfill:", err, "Line number:", err.(*duktape.Error).LineNumber)
 		panic(err.(*duktape.Error).Message)
 	}
 
 	if err := ctx.PevalString(e.scriptContents); err != nil {
+		fmt.Println("Error evaluating script:", err, "Line number:", err.(*duktape.Error).LineNumber)
 		panic(err.(*duktape.Error).Message)
 	}
 

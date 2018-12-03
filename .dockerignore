@@ -1,5 +1,13 @@
 *
 !src
-!react-build
 !Gopkg.toml
 !Gopkg.lock
+
+!webpack.config.js
+!package.json
+!yarn.lock
+
+!public
+!react-src
+
+!react-build

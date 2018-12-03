@@ -25,14 +25,13 @@ type Config struct {
 // TODO Can abstract this and have injection via env vars or CLI through Cobra etc
 func init() {
 	c := new(Config)
+
 	pwd, _ := os.Getwd()
 	c.polyfillLocation = pwd + "/react-build/duktape-polyfill.js"
 	c.scriptLocation = pwd + "/react-build/static/js/server.js"
 	c.templateLocation = pwd + "/react-build/index.html"
 	c.staticDir = pwd + "/react-build"
 	c.port = "8080"
-
-	// TODO Does dereferencing happen automatically during assignment?
 	config = c
 
 	engine = render.NewEngine(c.polyfillLocation, c.scriptLocation, c.templateLocation)
